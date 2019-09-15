@@ -70,7 +70,7 @@ public class EmailUtils {
             //3.3生成邮件主题
             message.setSubject("小米商城账号激活邮件","utf-8");
             String ip = Inet4Address.getLocalHost().getHostAddress();
-            String url = "http://"+ip+":8080/xiaomi/activate?e="+ Base64Utils.encode(user.getEmail())+"&c="+Base64Utils.encode(user.getCode());
+            String url = "http://"+ip+":8080/xiaomishop_vainglory/userServlet?op=activate?&e="+ Base64Utils.encode(user.getEmail())+"&c="+Base64Utils.encode(user.getCode());
             //设置邮件正文 setContent 可以使用html标签
             message.setContent(user.getUsername()+",你好<br>欢迎注册小米商城! 请点击链接进行激活:<a href='"+url+"'>"+url+"</a>","text/html;charset=utf-8");
             //设置邮件的发送时间 是立即发送

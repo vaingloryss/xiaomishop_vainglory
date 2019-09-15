@@ -10,8 +10,10 @@ import org.apache.commons.beanutils.BeanUtils;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.lang.reflect.InvocationTargetException;
+import java.util.Base64;
 import java.util.List;
 import java.util.Map;
 
@@ -109,74 +111,19 @@ public class UserServlet extends BaseServlet {
         }
         return null;
     }
-
-/*    protected void doPost(HttpServletRequest request, HttpServletResponse response){
-        try {
-            //设置编码的代码不能放在获取输出流的代码之后，否则设置编码无效
-            request.setCharacterEncoding("utf-8");
-            response.setContentType("text/html;charset=utf-8");
-            //try-with-resources语句
-            try(PrintWriter out = response.getWriter()){
-                //1：注册，2：删除，3：修改信息，4：修改密码 , 5：获取所有
-                String option = request.getParameter("op");
-                if("1".equals(option)){
-                    out.write(register(request));
-                }
-                if ("2".equals(option)){
-                    Integer id = Integer.parseInt(request.getParameter("id"));
-                    boolean result = delete(id);
-                    if (result){
-                        response.sendRedirect("userServlet?op=5");
-                    }else {
-                        out.write("删除失败。");
-                    }
-                }
-                if("3".equals(option)){
-                    String resultInfo = update(request);
-                    if (resultInfo.equals("修改成功。")){
-                        response.sendRedirect("userServlet?op=5");
-                    }
-                    out.write(resultInfo);
-                }
-                if("4".equals(option)){
-                    out.write(updatePwd(request));
-                }
-                if ("5".equals(option)){
-                    List<User> userList = userList();
-                    request.setAttribute("userList",userList);
-                    request.getRequestDispatcher("userList.jsp").forward(request,response);
-                }
-                if("6".equals(option)){
-                    String id = request.getParameter("id");
-                    User user = userService.findById(Integer.parseInt(id));
-                    request.setAttribute("user",user);
-                    request.getRequestDispatcher("updateInfo.jsp").forward(request,response);
-                }
+    public void activate(HttpServletRequest request,HttpServletResponse response){
+        String email = Base64.getDecoder().decode(request.getParameter("e")).toString();
+        String activateCode = Base64.getDecoder().decode(request.getParameter("c")).toString();
+        User user = userService.findByEmail(email);
+        if (activateCode.equals(user.getCode())){
+            userService.activate(user.getId());
+            System.out.println("激活成功");
+            try {
+                response.getWriter().write("激活成功，<a href='http://localhost:8080/xiaomishop_vainglory/login.jsp'>去登录</a>");
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-        } catch (Exception e) {
-            e.printStackTrace();
         }
     }
-
-    protected void doGet(HttpServletRequest request, HttpServletResponse response){
-        doPost(request,response);
-    }*/
-
-
-
-    /*private boolean delete(Integer id){
-        return userService.delete(id);
-    }
-    private String update(HttpServletRequest request)throws Exception{
-        User user = new User();
-        BeanUtils.populate(user,request.getParameterMap());
-        return userService.update(user);
-    }
-    private String updatePwd(HttpServletRequest request){
-        return userService.updatePwd(Integer.parseInt(request.getParameter("id")),request.getParameter("oldPwd"),request.getParameter("newPwd"));
-    }
-    private List<User> userList(){
-        return userService.queryAll();
-    }*/
 
 }

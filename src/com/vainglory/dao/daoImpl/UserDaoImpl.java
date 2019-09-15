@@ -104,4 +104,25 @@ public class UserDaoImpl implements IUserDao {
         }
         return  null;
     }
+
+    @Override
+    public User findByEmail(String email) {
+        String sql = "select * from tb_user where email=?";
+        try {
+            return queryRunner.query(sql,new BeanHandler<>(User.class),email);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public void activate(Integer uid) {
+        String sql = "update tb_user set flag=1 where id = uid";
+        try {
+            queryRunner.update(sql);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

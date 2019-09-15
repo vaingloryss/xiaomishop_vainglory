@@ -89,24 +89,13 @@ public class UserServiceImpl implements IUserService {
         return userDao.findByUserName(username);
     }
 
+    @Override
+    public User findByEmail(String email) {
+        return userDao.findByEmail(email);
+    }
 
-
-    private String judgeUser(User user){
-        if(user.getUsername()==null||user.getUsername().trim().length()==0){
-            return  "用户名不能为空。";
-        }
-        if(user.getPassword()==null||user.getPassword().trim().length()==0){
-            return "密码不能为空。";
-        }
-        /*if (!user.getPassword().equals(user.getRePassword())){
-            return "两次输入密码不一致。";
-        }*/
-        if(user.getEmail()==null||user.getEmail().trim().length()==0){
-            return "邮箱不能为空。";
-        }
-        /*if (!user.getValidateCode().equals(validateCode)){
-            return "验证码不正确。";
-        }*/
-        return null;
+    @Override
+    public void activate(Integer uid) {
+        userDao.activate(uid);
     }
 }

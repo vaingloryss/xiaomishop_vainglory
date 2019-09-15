@@ -15,4 +15,7 @@ public interface IUserService {
     User checkUserName(String username);
 
 
+    User findByEmail(String email);
+
+    void activate(Integer uid);
 }
