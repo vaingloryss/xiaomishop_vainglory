@@ -118,7 +118,7 @@ public class UserDaoImpl implements IUserDao {
 
     @Override
     public void activate(Integer uid) {
-        String sql = "update tb_user set flag=1 where id = uid";
+        String sql = "update tb_user set flag=1 where id = "+uid;
         try {
             queryRunner.update(sql);
         } catch (SQLException e) {

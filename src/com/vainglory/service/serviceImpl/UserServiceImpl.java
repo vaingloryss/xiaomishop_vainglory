@@ -19,7 +19,7 @@ public class UserServiceImpl implements IUserService {
     @Override
     public void register(User user) {
         //设置初始状态
-        user.setFlag(1);
+        user.setFlag(0);
         user.setRole(1);
         user.setCode(CodeUtils.getCode());
         user.setPassword(MD5Util.encode(user.getPassword()));

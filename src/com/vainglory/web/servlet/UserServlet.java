@@ -112,10 +112,17 @@ public class UserServlet extends BaseServlet {
         return null;
     }
     public void activate(HttpServletRequest request,HttpServletResponse response){
-        String email = Base64.getDecoder().decode(request.getParameter("e")).toString();
-        String activateCode = Base64.getDecoder().decode(request.getParameter("c")).toString();
+        response.setContentType("text/html;charset=utf-8");
+        String base64Email = request.getParameter("e");
+        String base64Code = request.getParameter("c");
+        byte[] byteEmail = Base64.getDecoder().decode(base64Email);
+        byte[] byteCode = Base64.getDecoder().decode(base64Code);
+
+        String email = new String(byteEmail);
+        String Code = new String(byteCode);
         User user = userService.findByEmail(email);
-        if (activateCode.equals(user.getCode())){
+
+        if (user.getCode().equals(Code)){
             userService.activate(user.getId());
             System.out.println("激活成功");
             try {
@@ -123,6 +130,8 @@ public class UserServlet extends BaseServlet {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }else {
+            System.out.println("激活失败");
         }
     }
 

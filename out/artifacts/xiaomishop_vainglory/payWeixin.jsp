@@ -52,19 +52,14 @@
 					</table>
 					<div class="pull-right" style="margin-right: 30px;">
 						<input type="submit" value="确认支付" class="btn btn-warning btn-lg">
-						
 					</div>
 					</form>
 				 </div>
 			   </div>
 			</div>
-			
 		</div>
-		
 	</div>
 	<!-- 底部 -->
    <%@ include file="footer.jsp"%>
-
-	
 </body>
 </html>
