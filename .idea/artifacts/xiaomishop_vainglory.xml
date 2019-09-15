@@ -1,0 +1,13 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="xiaomishop_vainglory">
+    <output-path>$PROJECT_DIR$/out/artifacts/xiaomishop_vainglory</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="xiaomishop_vainglory/web/Web" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="xiaomishop_vainglory" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>

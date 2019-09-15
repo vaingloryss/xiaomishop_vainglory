@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/web/META-INF" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/web/WEB-INF/lib/fastjson-1.2.34.jar" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/web/WEB-INF/lib/mysql-connector-java-5.0.8-bin.jar" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/web/admin" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/web/cart.jsp" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/web/cartSuccess.jsp" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/web/confirm.jsp" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/web/css" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/web/error" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/web/fonts" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/web/footer.jsp" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/web/goodsDetail.jsp" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/web/goodsList.jsp" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/web/header.jsp" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/web/image" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/web/index.jsp" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/web/js" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/web/login.jsp" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/web/message.jsp" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/web/order.jsp" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/web/orderDetail.jsp" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/web/orderList.jsp" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/web/orderSuccess.jsp" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/web/pay.jsp" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/web/payWeixin.jsp" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/web/register.jsp" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/web/registerSuccess.jsp" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/web/self_info.jsp" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/web/test.jsp" charset="GBK" />
+  </component>
+</project>
