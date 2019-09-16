@@ -2,10 +2,8 @@ package com.vainglory.dao.daoImpl;
 
 
 import com.vainglory.dao.IUserDao;
-import com.vainglory.domain.Address;
 import com.vainglory.domain.User;
 import com.vainglory.utils.DataSourceUtils;
-import com.vainglory.utils.MD5Util;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
@@ -16,91 +14,75 @@ import java.util.List;
 
 @Slf4j
 public class UserDaoImpl implements IUserDao {
-    QueryRunner queryRunner = new QueryRunner(DataSourceUtils.getDataSource());
+    private QueryRunner queryRunner = new QueryRunner(DataSourceUtils.getDataSource());
+
     @Override
     public int add(User user) {
-        System.out.println(4);
-        log.info("添加用户...");
         Object[] params = {null,user.getUsername(), user.getPassword(),user.getEmail(),user.getGender(),user.getFlag(),user.getRole(),user.getCode()};
-        
         String sql = "insert into tb_user values(?,?,?,?,?,?,?,?)";
         try {
-            int result = queryRunner.update(sql, params);
-            log.info("添加完成，结果{}：",result);
-            return result;
+            return queryRunner.update(sql, params);
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error("用户添加失败："+e.getMessage());
         }
         return 0;
     }
 
     @Override
     public User findById(Integer id) {
-        log.info("查询用户根据ID...");
         String sql = "select * from tb_user where id ="+id;
         try {
-            User user = queryRunner.query(sql, new BeanHandler<>(User.class));
-            return user;
+            return queryRunner.query(sql, new BeanHandler<>(User.class));
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error("根据ID查询用户失败："+e.getMessage());
         }
         return  null;
     }
 
     @Override
     public boolean delete(Integer id) {
-        log.info("删除用户...");
         String sql = "update tb_user set flag=2 where id=? ";
         try {
             int result = queryRunner.update(sql,id);
-            log.info("删除结果：{}",result);
             if (result==1){
                 return true;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error("用户删除失败："+e.getMessage());
         }
         return false;
     }
 
     @Override
     public int update(User user) {
-        log.info("修改用户...");
         Object[] params = {user.getUsername(),user.getEmail(),user.getGender(),user.getFlag(),user.getRole(),user.getId()};
         String sql = "update tb_user set username=?,email=?,gender=?,flag=?,role=? where id=?";
         try {
-            int result = queryRunner.update(sql, params);
-            log.info("修改完成，结果:{}",result);
-            return result;
+            return queryRunner.update(sql, params);
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error("用户修改失败："+e.getMessage());
         }
         return 0;
     }
 
     @Override
     public List<User> findAll(Integer flag) {
-        log.info("查询所用用户。");
         String sql = "select * from tb_user where flag=?";
         try {
-            List<User> userList = queryRunner.query(sql, new BeanListHandler<>(User.class),flag);
-            log.info("查询完成，结果数:{}",userList.size());
-            return userList;
+            return queryRunner.query(sql, new BeanListHandler<>(User.class),flag);
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error("查询所有用户失败："+e.getMessage());
         }
         return null;
     }
 
     @Override
     public User findByUserName(String userName) {
-        log.info("查询用户根据userName...");
         String sql = "select * from tb_user where username =?";
         try {
-            User user = queryRunner.query(sql, new BeanHandler<>(User.class),userName);
-            return user;
+            return queryRunner.query(sql, new BeanHandler<>(User.class),userName);
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error("根据用户名查询失败："+e.getMessage());
         }
         return  null;
     }
@@ -111,7 +93,7 @@ public class UserDaoImpl implements IUserDao {
         try {
             return queryRunner.query(sql,new BeanHandler<>(User.class),email);
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error("根据Email查询失败："+e.getMessage());
         }
         return null;
     }
@@ -122,7 +104,7 @@ public class UserDaoImpl implements IUserDao {
         try {
             queryRunner.update(sql);
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error("用户激活失败："+e.getMessage());
         }
     }
 }

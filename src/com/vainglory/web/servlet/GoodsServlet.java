@@ -8,9 +8,7 @@ import com.vainglory.service.IGoodsService;
 import com.vainglory.service.serviceImpl.GoodsServiceImpl;
 import com.vainglory.utils.StringUtils;
 
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -18,7 +16,7 @@ import java.util.List;
 
 @WebServlet(name = "GoodsServlet",value = "/goodsServlet")
 public class GoodsServlet extends BaseServlet {
-    IGoodsService goodsService = new GoodsServiceImpl();
+    private IGoodsService goodsService = new GoodsServiceImpl();
 
     public void goodsType(HttpServletRequest request,HttpServletResponse response){
         response.setContentType("application/json;charset=utf-8");

@@ -11,11 +11,11 @@ import java.util.List;
 
 public class OrderServiceImpl implements IOrderService {
 
-    ICartDao cartDao = new CartDaoImpl();
-    IAddressDao addressDao = new AddressDaoImpl();
-    IOrderDao orderDao  = new OrderDaoImpl();
-    IOrderDetailDao orderDetailDao = new OrderDetailDaoImpl();
-    IGoodsService goodsService = new GoodsServiceImpl();
+    private ICartDao cartDao = new CartDaoImpl();
+    private IAddressDao addressDao = new AddressDaoImpl();
+    private IOrderDao orderDao  = new OrderDaoImpl();
+    private IOrderDetailDao orderDetailDao = new OrderDetailDaoImpl();
+    private IGoodsService goodsService = new GoodsServiceImpl();
 
     @Override
     public List<Cart> getCarts(Integer uid) {
@@ -28,7 +28,7 @@ public class OrderServiceImpl implements IOrderService {
     }
 
     @Override
-    public int addOrder(Order order, List<OrderDetail> orderDetails) {
+    public void addOrder(Order order, List<OrderDetail> orderDetails) {
         try {
             //开启事务
             DataSourceUtils.startTransaction();
@@ -56,7 +56,6 @@ public class OrderServiceImpl implements IOrderService {
             }
         }
 
-        return 0;
     }
 
     @Override

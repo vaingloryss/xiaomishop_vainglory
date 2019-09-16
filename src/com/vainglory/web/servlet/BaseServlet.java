@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.lang.reflect.Method;
 
 public class BaseServlet extends HttpServlet {
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         request.setCharacterEncoding("utf-8");
         //判断用户当前行为
         String option = request.getParameter("op");

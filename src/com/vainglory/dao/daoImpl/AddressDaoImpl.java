@@ -3,6 +3,7 @@ package com.vainglory.dao.daoImpl;
 import com.vainglory.dao.IAddressDao;
 import com.vainglory.domain.Address;
 import com.vainglory.utils.DataSourceUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
@@ -10,23 +11,17 @@ import org.apache.commons.dbutils.handlers.BeanListHandler;
 import java.sql.SQLException;
 import java.util.List;
 
+@Slf4j
 public class AddressDaoImpl implements IAddressDao {
-    QueryRunner queryRunner = new QueryRunner(DataSourceUtils.getDataSource());
+    private QueryRunner queryRunner = new QueryRunner(DataSourceUtils.getDataSource());
 
-    /*
-        private Integer id;
-    private String detail;
-    private String name;
-    private String phone;
-    private Integer uid;
-    private Integer level;
-     */
     @Override
     public List<Address> getAddressByUid(Integer uid) {
         String sql = "select * from tb_address where uid = ? order by level desc,id desc";
         try {
             return queryRunner.query(sql,new BeanListHandler<>(Address.class),uid);
         } catch (SQLException e) {
+            log.error("根据用户ID查询地址失败："+e.getMessage());
             e.printStackTrace();
         }
         return null;
@@ -39,7 +34,7 @@ public class AddressDaoImpl implements IAddressDao {
         try {
             return queryRunner.update(sql, params);
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error("添加地址失败："+e.getMessage());
         }
         return 0;
     }
@@ -50,20 +45,19 @@ public class AddressDaoImpl implements IAddressDao {
         try {
             return queryRunner.update(sql, id);
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error("根据地址ID删除地址失败："+e.getMessage());
         }
         return 0;
     }
 
     @Override
-    public int removeDefault(int uid) {
+    public void removeDefault(int uid) {
         String sql = "update tb_address set level=0 where uid=? and level=1";
         try {
-            return queryRunner.update(sql, uid);
+            queryRunner.update(sql, uid);
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error("移除默认地址失败："+e.getMessage());
         }
-        return 0;
     }
 
     @Override
@@ -72,7 +66,7 @@ public class AddressDaoImpl implements IAddressDao {
         try {
             return queryRunner.update(sql, id);
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error("设置默认地址失败："+e.getMessage());
         }
         return 0;
     }
@@ -84,7 +78,7 @@ public class AddressDaoImpl implements IAddressDao {
         try {
             return queryRunner.update(sql, params);
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error("更新地址失败："+e.getMessage());
         }
         return 0;
     }
@@ -95,7 +89,7 @@ public class AddressDaoImpl implements IAddressDao {
         try {
             return queryRunner.query(sql,new BeanListHandler<>(Address.class),uid);
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error("根据用户ID查询地址失败："+e.getMessage());
         }
         return null;
     }
@@ -106,7 +100,7 @@ public class AddressDaoImpl implements IAddressDao {
         try {
             return queryRunner.query(sql,new BeanHandler<>(Address.class),aid);
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error("根据地址ID查询地址失败："+e.getMessage());
         }
         return null;
     }

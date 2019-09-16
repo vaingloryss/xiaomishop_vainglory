@@ -1,22 +1,15 @@
 package com.vainglory.web.servlet;
 
-import com.sun.javafx.image.IntPixelGetter;
-import com.sun.org.apache.xpath.internal.operations.Or;
-import com.vainglory.dao.ICartDao;
 import com.vainglory.domain.*;
 import com.vainglory.service.ICartService;
 import com.vainglory.service.IOrderService;
 import com.vainglory.service.serviceImpl.CartServiceImpl;
 import com.vainglory.service.serviceImpl.OrderServiceImpl;
 import com.vainglory.utils.RandomUtils;
-import sun.security.x509.OIDMap;
 
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
@@ -24,8 +17,10 @@ import java.util.List;
 
 @WebServlet(name = "OrderServlet",value = "/orderServlet")
 public class OrderServlet extends BaseServlet {
-    IOrderService orderService = new OrderServiceImpl();
-    ICartService cartService = new CartServiceImpl();
+
+    private IOrderService orderService = new OrderServiceImpl();
+    private ICartService cartService = new CartServiceImpl();
+
     public String getOrderView(HttpServletRequest request,HttpServletResponse response){
         User user = (User) request.getSession().getAttribute("user");
         if (user==null){
@@ -45,6 +40,7 @@ public class OrderServlet extends BaseServlet {
         }
         int aid = Integer.parseInt(request.getParameter("aid"));
         List<Cart> carts = cartService.finByUid(user.getId());
+        assert carts != null;
         if (carts==null&&carts.size()==0){
             request.setAttribute("msg", "购物车为空，请选择商品!");
             return "/message.jsp";

@@ -1,6 +1,5 @@
 package com.vainglory.web.servlet;
 
-import com.vainglory.domain.Address;
 import com.vainglory.domain.User;
 import com.vainglory.service.IUserService;
 import com.vainglory.service.serviceImpl.UserServiceImpl;
@@ -11,15 +10,13 @@ import org.apache.commons.beanutils.BeanUtils;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.lang.reflect.InvocationTargetException;
 import java.util.Base64;
-import java.util.List;
-import java.util.Map;
 
 @WebServlet(name = "UserServlet",value = {"/userServlet"})
 public class UserServlet extends BaseServlet {
-    IUserService userService = new UserServiceImpl();
+
+    private IUserService userService = new UserServiceImpl();
+
     //用户注册
     public String register(HttpServletRequest request,HttpServletResponse response)throws Exception{
         User user = new User();

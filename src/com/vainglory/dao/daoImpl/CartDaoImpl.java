@@ -1,9 +1,9 @@
 package com.vainglory.dao.daoImpl;
 
-import com.alibaba.druid.sql.ast.statement.SQLUnionQuery;
 import com.vainglory.dao.ICartDao;
 import com.vainglory.domain.Cart;
 import com.vainglory.utils.DataSourceUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
@@ -11,9 +11,10 @@ import org.apache.commons.dbutils.handlers.BeanListHandler;
 import java.sql.SQLException;
 import java.util.List;
 
+@Slf4j
 public class CartDaoImpl implements ICartDao {
 
-    QueryRunner queryRunner = new QueryRunner(DataSourceUtils.getDataSource());
+    private QueryRunner queryRunner = new QueryRunner(DataSourceUtils.getDataSource());
 
     @Override
     public int add(Cart cart) {
@@ -22,13 +23,8 @@ public class CartDaoImpl implements ICartDao {
         try {
             return queryRunner.update(sql,params);
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error("添加购物车失败："+e.getMessage());
         }
-        return 0;
-    }
-
-    @Override
-    public int deleteByGid(Integer gid) {
         return 0;
     }
 
@@ -38,7 +34,7 @@ public class CartDaoImpl implements ICartDao {
         try {
             return queryRunner.update(sql,uid);
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error("根据用户ID删除购物车："+e.getMessage());
         }
         return 0;
     }
@@ -50,7 +46,7 @@ public class CartDaoImpl implements ICartDao {
             return queryRunner.query(sql, new BeanHandler<>(Cart.class),uid,gid);
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error("根据用户ID和商品ID查询购物车失败："+e.getMessage());
         }
         return null;
     }
@@ -62,20 +58,9 @@ public class CartDaoImpl implements ICartDao {
         try {
             return queryRunner.update(sql,params);
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error("更新购物车商品失败："+e.getMessage());
         }
         return 0;
-    }
-
-    @Override
-    public List<Cart> findAll() {
-        String sql = "select * from tb_cart";
-        try {
-            return queryRunner.query(sql, new BeanListHandler<>(Cart.class));
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
     }
 
     @Override
@@ -84,7 +69,7 @@ public class CartDaoImpl implements ICartDao {
         try {
             return queryRunner.query(sql, new BeanListHandler<>(Cart.class),uid);
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error("根据用户ID查询购物车失败："+e.getMessage());
         }
         return null;
     }
@@ -95,7 +80,7 @@ public class CartDaoImpl implements ICartDao {
         try {
             return queryRunner.update(sql,uid,gid);
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error("根据用户ID和商品ID删除商品失败："+e.getMessage());
         }
         return 0;
     }

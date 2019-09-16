@@ -11,7 +11,7 @@ import java.util.List;
 
 public class GoodsServiceImpl implements IGoodsService {
 
-    IGoodsDao goodsDao = new GoodsDaoImpl();
+    private IGoodsDao goodsDao = new GoodsDaoImpl();
 
     @Override
     public List<GoodsType> getGoodsTypeList() {
@@ -24,18 +24,12 @@ public class GoodsServiceImpl implements IGoodsService {
     }
 
     @Override
-    public List<Goods> getGoodsListByTypeId(Integer typeid) {
-        return goodsDao.getGoodsListByTypeId(typeid);
-    }
-    @Override
     public PageBean<Goods> findPageByWhere(int pageNum, int pageSize, String condition) {
 
         long totalSize=goodsDao.getCount(condition);
         List<Goods> data= goodsDao.findPageByWhere(pageNum,pageSize,condition);
 
-        PageBean<Goods> pageBean=new PageBean<>(pageNum, pageSize, totalSize , data);
-
-        return pageBean;
+        return new PageBean<>(pageNum, pageSize, totalSize , data);
     }
 
     @Override

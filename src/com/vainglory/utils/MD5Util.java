@@ -19,6 +19,7 @@ public class MD5Util {
         for (int i = 0;i <charArray.length;i++){
             byteArray[i] = (byte) charArray[i];
         }
+        assert md5 != null;
         byte[] md5Bytes = md5.digest(byteArray);
         StringBuffer hexValue = new StringBuffer();
         for (int i = 0;i<md5Bytes.length;i++){

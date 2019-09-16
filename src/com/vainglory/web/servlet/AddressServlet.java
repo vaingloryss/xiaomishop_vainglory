@@ -3,24 +3,18 @@ package com.vainglory.web.servlet;
 import com.vainglory.domain.Address;
 import com.vainglory.domain.User;
 import com.vainglory.service.IAddressService;
-import com.vainglory.service.IUserService;
 import com.vainglory.service.serviceImpl.AddressServiceImpl;
-import com.vainglory.service.serviceImpl.UserServiceImpl;
 import org.apache.commons.beanutils.BeanUtils;
 
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.Map;
 
 @WebServlet(name = "AddressServlet" ,value = "/addressServlet")
 public class AddressServlet extends BaseServlet {
-    IAddressService addressService = new AddressServiceImpl();
+    private IAddressService addressService = new AddressServiceImpl();
 
     public String show(HttpServletRequest request,HttpServletResponse response){
         User user = (User) request.getSession().getAttribute("user");
@@ -40,9 +34,7 @@ public class AddressServlet extends BaseServlet {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        if (b){
-             return show(request,response);
-        }
+        if (b) return show(request, response);
         System.out.println("添加地址失败。");
         return null;
     }

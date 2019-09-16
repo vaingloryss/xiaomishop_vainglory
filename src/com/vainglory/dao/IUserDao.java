@@ -12,9 +12,6 @@ public interface IUserDao {
     int update(User user);
     List<User> findAll(Integer flag);
     User findByUserName(String userName);
-
-
     User findByEmail(String email);
-
     void activate(Integer uid);
 }

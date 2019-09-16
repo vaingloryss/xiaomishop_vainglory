@@ -7,13 +7,12 @@ import com.vainglory.domain.Goods;
 import com.vainglory.service.ICartService;
 import com.vainglory.service.IGoodsService;
 
-import java.awt.geom.FlatteningPathIterator;
 import java.util.List;
 
 public class CartServiceImpl implements ICartService {
 
-    ICartDao cartDao = new CartDaoImpl();
-    IGoodsService goodsService = new GoodsServiceImpl();
+    private ICartDao cartDao = new CartDaoImpl();
+    private IGoodsService goodsService = new GoodsServiceImpl();
 
     @Override
     public Cart findByUidAndGid(Integer uid, Integer gid) {
@@ -23,19 +22,13 @@ public class CartServiceImpl implements ICartService {
     @Override
     public boolean updateCart(Cart cart) {
         int result = cartDao.update(cart);
-        if (result==1){
-            return true;
-        }
-        return false;
+        return result == 1;
     }
 
     @Override
     public boolean addCart(Cart cart) {
         int result = cartDao.add(cart);
-        if (result==1){
-            return true;
-        }
-        return false;
+        return result == 1;
     }
 
     @Override
@@ -51,19 +44,13 @@ public class CartServiceImpl implements ICartService {
     }
 
     @Override
-    public List<Cart> findAll() {
-        return cartDao.findAll();
-    }
-
-    @Override
     public boolean deleteCart(Integer uid, Integer gid) {
         int result = cartDao.deleteByUidAndGid(uid,gid);
-        return false;
+        return result==1;
     }
 
     @Override
-    public boolean clearCart(Integer uid) {
-        int result = cartDao.deleteByUid(uid);
-        return true;
+    public void clearCart(Integer uid) {
+        cartDao.deleteByUid(uid);
     }
 }

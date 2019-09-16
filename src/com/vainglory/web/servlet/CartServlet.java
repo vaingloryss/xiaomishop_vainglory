@@ -86,13 +86,8 @@ public class CartServlet extends BaseServlet {
         if (user==null){
             return "redirect:/login.jsp";
         }
-        boolean b = cartService.clearCart(user.getId());
-        if (b){
-            System.out.println("删除成功");
-            return "redirect:/cartSuccess.jsp";
-        }
-        System.out.println("删除失败");
+        cartService.clearCart(user.getId());
+        System.out.println("删除成功");
         return "redirect:/cartSuccess.jsp";
     }
-
 }

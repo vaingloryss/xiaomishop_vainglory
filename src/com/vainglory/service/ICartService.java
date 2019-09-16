@@ -9,10 +9,6 @@ public interface ICartService {
     boolean updateCart(Cart cart);
     boolean addCart(Cart cart);
     List<Cart> finByUid(Integer uid);
-
-    List<Cart> findAll();
-
     boolean deleteCart(Integer uid,Integer gid);
-
-    boolean clearCart(Integer uid);
+    void clearCart(Integer uid);
 }
