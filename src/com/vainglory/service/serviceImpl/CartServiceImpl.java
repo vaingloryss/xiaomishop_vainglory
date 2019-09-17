@@ -1,18 +1,18 @@
 package com.vainglory.service.serviceImpl;
 
 import com.vainglory.dao.ICartDao;
-import com.vainglory.dao.daoImpl.CartDaoImpl;
+import com.vainglory.dao.IGoodsDao;
+import com.vainglory.dao.daoImpl.DaoFactory;
 import com.vainglory.domain.Cart;
 import com.vainglory.domain.Goods;
 import com.vainglory.service.ICartService;
-import com.vainglory.service.IGoodsService;
 
 import java.util.List;
 
 public class CartServiceImpl implements ICartService {
 
-    private ICartDao cartDao = new CartDaoImpl();
-    private IGoodsService goodsService = new GoodsServiceImpl();
+    private ICartDao cartDao = DaoFactory.getCartDao();
+    private IGoodsDao goodsDao = DaoFactory.getGoodsDao();
 
     @Override
     public Cart findByUidAndGid(Integer uid, Integer gid) {
@@ -36,7 +36,7 @@ public class CartServiceImpl implements ICartService {
         List<Cart> carts = cartDao.finByUid(uid);
         if (carts !=null){
             for (Cart cart : carts) {
-                Goods goods = goodsService.findById(cart.getGid());
+                Goods goods = goodsDao.findById(cart.getGid());
                 cart.setGoods(goods);
             }
         }

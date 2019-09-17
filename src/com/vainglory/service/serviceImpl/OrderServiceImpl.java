@@ -3,7 +3,6 @@ package com.vainglory.service.serviceImpl;
 import com.vainglory.dao.*;
 import com.vainglory.dao.daoImpl.*;
 import com.vainglory.domain.*;
-import com.vainglory.service.IGoodsService;
 import com.vainglory.service.IOrderService;
 import com.vainglory.utils.DataSourceUtils;
 
@@ -11,11 +10,11 @@ import java.util.List;
 
 public class OrderServiceImpl implements IOrderService {
 
-    private ICartDao cartDao = new CartDaoImpl();
-    private IAddressDao addressDao = new AddressDaoImpl();
-    private IOrderDao orderDao  = new OrderDaoImpl();
-    private IOrderDetailDao orderDetailDao = new OrderDetailDaoImpl();
-    private IGoodsService goodsService = new GoodsServiceImpl();
+    private ICartDao cartDao = DaoFactory.getCartDao();
+    private IAddressDao addressDao = DaoFactory.getAddressDao();
+    private IOrderDao orderDao  = DaoFactory.getOrderDao();
+    private IOrderDetailDao orderDetailDao = DaoFactory.getOrderDetailDao();
+    private IGoodsDao goodsDao = DaoFactory.getGoodsDao();
 
     @Override
     public List<Cart> getCarts(Integer uid) {
@@ -78,7 +77,7 @@ public class OrderServiceImpl implements IOrderService {
         Address address = addressDao.findById(order.getAid());
         List<OrderDetail> orderDetails = orderDetailDao.findByOid(oid);
         for (OrderDetail orderDetail : orderDetails) {
-            orderDetail.setGoods(goodsService.findById(orderDetail.getPid()));
+            orderDetail.setGoods(goodsDao.findById(orderDetail.getPid()));
         }
         order.setAddress(address);
         order.setOrderDetails(orderDetails);

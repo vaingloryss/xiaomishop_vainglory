@@ -1,7 +1,7 @@
 package com.vainglory.service.serviceImpl;
 
 import com.vainglory.dao.IGoodsDao;
-import com.vainglory.dao.daoImpl.GoodsDaoImpl;
+import com.vainglory.dao.daoImpl.DaoFactory;
 import com.vainglory.domain.Goods;
 import com.vainglory.domain.GoodsType;
 import com.vainglory.domain.PageBean;
@@ -11,7 +11,7 @@ import java.util.List;
 
 public class GoodsServiceImpl implements IGoodsService {
 
-    private IGoodsDao goodsDao = new GoodsDaoImpl();
+    private IGoodsDao goodsDao = DaoFactory.getGoodsDao();
 
     @Override
     public List<GoodsType> getGoodsTypeList() {

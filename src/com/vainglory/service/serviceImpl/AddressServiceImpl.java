@@ -1,14 +1,15 @@
 package com.vainglory.service.serviceImpl;
 
 import com.vainglory.dao.IAddressDao;
-import com.vainglory.dao.daoImpl.AddressDaoImpl;
+import com.vainglory.dao.daoImpl.DaoFactory;
 import com.vainglory.domain.Address;
 import com.vainglory.service.IAddressService;
 
 import java.util.List;
 
 public class AddressServiceImpl implements IAddressService {
-    private IAddressDao addressDao = new AddressDaoImpl();
+
+    private IAddressDao addressDao = DaoFactory.getAddressDao();
 
     @Override
     public List<Address> getAddressList(Integer id) {

@@ -2,7 +2,7 @@ package com.vainglory.service.serviceImpl;
 
 
 import com.vainglory.dao.IUserDao;
-import com.vainglory.dao.daoImpl.UserDaoImpl;
+import com.vainglory.dao.daoImpl.DaoFactory;
 import com.vainglory.domain.User;
 import com.vainglory.service.IUserService;
 import com.vainglory.utils.CodeUtils;
@@ -13,7 +13,7 @@ import java.util.List;
 
 public class UserServiceImpl implements IUserService {
 
-    private IUserDao userDao = new UserDaoImpl();
+    private IUserDao userDao = DaoFactory.getUserDao();
 
     @Override
     public void register(User user) {
